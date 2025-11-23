@@ -242,9 +242,6 @@ const ListQuote: React.FC = () => {
                                         Cytat {sortBy === "text" ? (sortAsc ? " ▲" : " ▼") : null}
                                     </th>
                                     <th>Data</th>
-                                    <th onClick={() => handleSort("period")}>
-                                        Okres {sortBy === "period" ? (sortAsc ? " ▲" : " ▼") : null}
-                                    </th>
                                     <th onClick={() => handleSort("source")}>
                                         Źródło {sortBy === "source" ? (sortAsc ? " ▲" : " ▼") : null}
                                     </th>
@@ -257,7 +254,6 @@ const ListQuote: React.FC = () => {
                                         <td>{q.author.name || "-"}</td>
                                         <td>{q.text}</td>
                                         <td className="date-column">{formatDate(q.quoteDateInfo, i18n.language)}</td>
-                                        <td>{q.period || "-"}</td>
                                         <td>{q.source || "-"}</td>
                                         {user && (
                                             <td className="favorite-column" style={{ cursor: 'pointer' }} onClick={() => toggleFavorite(q.id, !!q.favorite)}>

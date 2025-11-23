@@ -189,7 +189,6 @@ const ListFavorite: React.FC = () => {
                                 <th onClick={() => handleSort("author.name")}>Autor {sortBy === "author.name" ? (sortAsc ? " ▲" : " ▼") : null}</th>
                                 <th onClick={() => handleSort("text")}>Cytat {sortBy === "text" ? (sortAsc ? " ▲" : " ▼") : null}</th>
                                 <th>Data</th>
-                                <th onClick={() => handleSort("period")}>Okres {sortBy === "period" ? (sortAsc ? " ▲" : " ▼") : null}</th>
                                 <th onClick={() => handleSort("source")}>Źródło {sortBy === "source" ? (sortAsc ? " ▲" : " ▼") : null}</th>
                                 <th>Zapisane</th>
                             </tr>
@@ -200,7 +199,6 @@ const ListFavorite: React.FC = () => {
                                     <td>{q.author.name || "-"}</td>
                                     <td>{q.text}</td>
                                     <td>{formatDate(q.quoteDateInfo, i18n.language)}</td>
-                                    <td>{q.period || "-"}</td>
                                     <td>{q.source || "-"}</td>
                                     <td className="favorite-column" style={{ cursor: 'pointer' }} onClick={() => toggleFavorite(q.id)}>
                                         <img src={q.favorite ? StarFilled : StarEmpty} className="favorite-icon" />
