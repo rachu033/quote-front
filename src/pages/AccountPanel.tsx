@@ -2,11 +2,9 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { auth } from "../FirebaseConfig.ts";
 import "../styles/pages/AccountPanel.css";
-import { useTranslation } from "react-i18next";
 
 const AccountPanel: React.FC = () => {
     const { user, setUser } = useContext(AuthContext);
-    const { t } = useTranslation();
 
     const [loading, setLoading] = useState(true);
     const [nickname, setNickname] = useState("");
@@ -22,7 +20,7 @@ const AccountPanel: React.FC = () => {
                 credentials: "include",
             });
 
-            if (!res.ok) throw new Error("Failed to load user");
+            if (!res.ok) throw new Error("Nie udało się pobrać danych użytkownika");
 
             const data = await res.json();
             setUser({
@@ -48,7 +46,7 @@ const AccountPanel: React.FC = () => {
             setSuccess(null);
 
             if (newNickname.trim().length < 3) {
-                setError(t("nicknameTooShort"));
+                setError("Nick jest za krótki (minimum 3 znaki)");
                 return;
             }
 
@@ -61,10 +59,10 @@ const AccountPanel: React.FC = () => {
 
             if (!res.ok) {
                 const msg = await res.text();
-                throw new Error(msg || "Failed to update nickname");
+                throw new Error(msg || "Nie udało się zmienić nicku");
             }
 
-            setSuccess(t("nicknameUpdated"));
+            setSuccess("Nick został zaktualizowany");
             setNickname(newNickname);
             setEditNickname(false);
             setUser(prev => prev ? { ...prev, nickname: newNickname } : null);
@@ -74,7 +72,7 @@ const AccountPanel: React.FC = () => {
     };
 
     const handleAccountDelete = async () => {
-        if (!confirm(t("confirmAccountDelete"))) return;
+        if (!confirm("Czy na pewno chcesz usunąć swoje konto?")) return;
 
         try {
             const res = await fetch(`${import.meta.env.VITE_API_URL}/users/delete`, {
@@ -84,7 +82,7 @@ const AccountPanel: React.FC = () => {
 
             if (!res.ok) {
                 const msg = await res.text();
-                throw new Error(msg || "Failed to delete account");
+                throw new Error(msg || "Nie udało się usunąć konta");
             }
 
             await auth.currentUser?.delete();
@@ -95,26 +93,26 @@ const AccountPanel: React.FC = () => {
         }
     };
 
-    if (loading) return <p>{t("loading")}...</p>;
+    if (loading) return <p>Ładowanie danych...</p>;
 
     return (
         <div className="account-container">
             <div className="account-panel">
 
-                <h1>{t("yourAccount")}</h1>
+                <h1>Twoje konto</h1>
 
                 <div className="account-item">
-                    <strong>{t("email")}:</strong> {user?.email}
+                    <strong>E-mail:</strong> {user?.email}
                 </div>
 
                 <div className="account-item">
-                    <strong>{t("nickname")}:</strong>
+                    <strong>Nick:</strong>
 
                     {!editNickname ? (
                         <>
                             <span>{nickname}</span>
                             <button onClick={() => { setEditNickname(true); setNewNickname(nickname); }}>
-                                {t("edit")}
+                                Edytuj
                             </button>
                         </>
                     ) : (
@@ -125,10 +123,10 @@ const AccountPanel: React.FC = () => {
                                 onChange={e => setNewNickname(e.target.value)}
                             />
                             <button onClick={handleNicknameSave}>
-                                {t("save")}
+                                Zapisz
                             </button>
                             <button onClick={() => setEditNickname(false)}>
-                                {t("cancel")}
+                                Anuluj
                             </button>
                         </>
                     )}
@@ -136,7 +134,7 @@ const AccountPanel: React.FC = () => {
 
                 {user?.isModerator && (
                     <div className="account-item moderator">
-                        <strong>{t("moderatorAccount")}</strong>
+                        <strong>Konto moderatora</strong>
                     </div>
                 )}
 
@@ -146,11 +144,12 @@ const AccountPanel: React.FC = () => {
                 <hr />
 
                 <button className="delete-btn" onClick={handleAccountDelete}>
-                    {t("deleteAccount")}
+                    Usuń konto
                 </button>
             </div>
         </div>
     );
+
 };
 
 export default AccountPanel;
