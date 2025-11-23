@@ -180,8 +180,12 @@ const ModAuthor: React.FC = () => {
                                     {a.nationalityPrimary && (
                                         <img src={`https://flagcdn.com/w20/${a.nationalityPrimary}.png`} />
                                     )}
-                                    {a.nationalitySecondary && (
-                                        <img src={`https://flagcdn.com/w20/${a.nationalitySecondary}.png`} />
+                                    {a.nationalitySecondary && a.nationalitySecondary !== "None" && (
+                                        <img
+                                            src={`https://flagcdn.com/w40/${a.nationalitySecondary}.png`}
+                                            alt={a.nationalitySecondary}
+                                            className="flag-mini"
+                                        />
                                     )}
                                 </div>
                             </li>

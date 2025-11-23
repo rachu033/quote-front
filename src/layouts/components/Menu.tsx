@@ -8,14 +8,18 @@ export default function Menu() {
     const { t } = useTranslation();
     const { user, setUser } = useContext(AuthContext);
 
-    const handleLogout = () => {
-        fetch("http://localhost:8080/quoteapi/auth/logout", {
-            method: "POST",
-            credentials: "include"
-        }).finally(() => {
+    const handleLogout = async () => {
+        try {
+            await fetch("http://localhost:8080/quoteapi/authentication/logout", {
+                method: "POST",
+                credentials: "include"
+            });
+        } catch (err) {
+            console.error("Błąd przy wylogowaniu:", err);
+        } finally {
             setUser(null);
-            window.location.href = "/home";
-        });
+            //window.location.href = "/home"; // opcjonalnie redirect
+        }
     };
 
     const getAddLink = (type: string) => {
@@ -69,7 +73,7 @@ export default function Menu() {
 
                 {/* PROFIL */}
                 <li>
-                    <Link to="#0">{t("menu.profile.title")}</Link>
+                    <Link to={user ? "/account" : "login"}>{t("menu.profile.title")}</Link>
                     <ul className="sub-menu">
                         {user ? (
                             <>

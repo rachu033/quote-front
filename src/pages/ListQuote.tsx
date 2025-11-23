@@ -40,9 +40,9 @@ const ListQuote: React.FC = () => {
         setPage(0);
         if (authorParam) {
             setSearchAuthor(authorParam);
-            fetchQuotes(undefined, authorParam, searchPeriod, searchSource, showUnapproved, 0, size, sortBy, sortAsc);
+            fetchQuotes(undefined, authorParam, searchPeriod, searchSource, 1, 0, size, sortBy, sortAsc);
         } else {
-            fetchQuotes(undefined, undefined, searchPeriod, searchSource, showUnapproved, 0, size, sortBy, sortAsc);
+            fetchQuotes(undefined, undefined, searchPeriod, searchSource, 1, 0, size, sortBy, sortAsc);
         }
     }, [location.search, sortBy, sortAsc]);
 
@@ -58,7 +58,6 @@ const ListQuote: React.FC = () => {
     const [searchSource, setSearchSource] = useState("");
 
     const [searchPeriod] = useState("");
-    const [showUnapproved] = useState(false);
 
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(20);
@@ -84,7 +83,7 @@ const ListQuote: React.FC = () => {
             if (period) params.append("period", period);
             if (source) params.append("source", source);
 
-            params.append("approved", approved ? "0" : "2");
+            params.append("approved", approved ? "1" : "1");
             params.append("page", String(pageNum ?? page));
             params.append("size", String(pageSize ?? size));
 
@@ -128,13 +127,13 @@ const ListQuote: React.FC = () => {
         }
 
         setPage(0);
-        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, showUnapproved, 0, size, field, sortBy === field ? !sortAsc : true);
+        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, 1, 0, size, field, sortBy === field ? !sortAsc : true);
     };
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         setPage(0);
-        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, showUnapproved, 0, size);
+        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, 1, 0, size);
     };
 
     const toggleFavorite = async (quoteId: number, isFavorite: boolean) => {
@@ -160,14 +159,14 @@ const ListQuote: React.FC = () => {
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
-        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, showUnapproved, newPage, size);
+        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, 1, newPage, size);
     };
 
     const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const newSize = Number(e.target.value);
         setSize(newSize);
         setPage(0);
-        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, showUnapproved, 0, newSize);
+        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, 1, 0, newSize);
     };
 
     const formatDate = (dateInfo: DateInfo | undefined, lang: string): string => {

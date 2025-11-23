@@ -1,20 +1,27 @@
 import React, {useState, useEffect, useRef} from "react";
 import RowDate from "./RowDate.tsx";
-import "../styles/components/QuoteForm.css";
+import "../styles/components/FormQuote.css";
 
-interface DateInfo {
+export interface Author {
+    id: number;
+    name: string;
+}
+
+export interface DateInfo {
     type: "Date" | "Year" | "Century";
     value: string;
     precision: "Exact" | "Approx";
     era: "AD" | "BC";
 }
 
-interface QuoteRecord {
+export interface QuoteRecord {
+    id?: number;
     text: string;
     authorId: number | null;
+    author?: Author | null;
     quoteDateInfo: DateInfo;
-    period: string;
-    source: string;
+    period?: string;
+    source?: string;
 }
 
 interface FormQuoteFormProps {
@@ -46,7 +53,7 @@ const FormQuote: React.FC<FormQuoteFormProps> = ({onSubmit, initialData, onRejec
     const [message, setMessage] = useState("");
 
     const authorRef = useRef<HTMLDivElement>(null);
-    const periods = ["Starożytność", "Średniowiecze", "Nowożytność", "Współczesność"];
+    //const periods = ["Starożytność", "Średniowiecze", "Nowożytność", "Współczesność"];
 
     const prevInitialRef = useRef<QuoteRecord | null>(null);
 

@@ -47,7 +47,7 @@ const ListAuthor: React.FC = () => {
     const [size, setSize] = useState(20);
     const [totalPages, setTotalPages] = useState(1);
 
-    const APPROVED = 2;
+    const APPROVED = 1;
 
     const basicCountries: Country[] = [
         { code: "pl", name: "Polska" },

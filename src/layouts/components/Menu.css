@@ -70,6 +70,7 @@ a.disabled {
     color: #fff !important;
     font-weight: bold;
     transition: background .3s;
+    cursor: pointer;
 }
 
 .logout-btn:hover {

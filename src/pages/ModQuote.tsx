@@ -8,25 +8,26 @@ interface Toast {
     type: "success" | "error";
 }
 
-interface DateInfo {
+export interface Author {
+    id: number;
+    name: string;
+}
+
+export interface DateInfo {
     type: "Date" | "Year" | "Century";
     value: string;
     precision: "Exact" | "Approx";
     era: "AD" | "BC";
 }
 
-interface Author {
-    id: number;
-    name: string;
-}
-
-interface QuoteRecord {
-    id: number;
+export interface QuoteRecord {
+    id?: number;
     text: string;
+    authorId: number | null;
+    author?: Author | null;
+    quoteDateInfo: DateInfo;
     period?: string;
     source?: string;
-    quoteDateInfo?: DateInfo;
-    author?: Author | null;
 }
 
 interface PageResponse<T> {
@@ -76,7 +77,13 @@ const ModQuote: React.FC = () => {
         fetchQuotes();
     }, []);
 
-    const handleSubmit = async (data: Omit<QuoteRecord, "id">) => {
+    const handleSubmit = async (data: {
+        text: string;
+        authorId: number | null;
+        quoteDateInfo: DateInfo;
+        period: string;
+        source: string;
+    }) => {
         try {
             if (selectedQuote) {
                 const updatedQuote: QuoteRecord = {
@@ -85,7 +92,8 @@ const ModQuote: React.FC = () => {
                     period: data.period,
                     source: data.source,
                     quoteDateInfo: data.quoteDateInfo,
-                    author: data.authorId ? { id: data.authorId } : null,
+                    author: data.authorId !== null ? { id: data.authorId, name: selectedQuote.author?.name || "" } : null,
+                    authorId: data.authorId,
                 };
 
                 const res = await fetch(`${import.meta.env.VITE_API_URL}/moderate/quote`, {
@@ -105,7 +113,13 @@ const ModQuote: React.FC = () => {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify({
+                        text: data.text,
+                        authorId: data.authorId,
+                        quoteDateInfo: data.quoteDateInfo,
+                        period: data.period,
+                        source: data.source,
+                    }),
                 });
 
                 if (!res.ok) throw new Error("Błąd podczas zapisu cytatu");
@@ -116,7 +130,6 @@ const ModQuote: React.FC = () => {
             console.error(err);
             showToast("Wystąpił błąd podczas zapisu", "error");
         }
-
     };
 
     // ------------------------------ DELETE QUOTE ------------------------------
