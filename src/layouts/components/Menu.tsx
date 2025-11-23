@@ -10,7 +10,7 @@ export default function Menu() {
 
     const handleLogout = async () => {
         try {
-            await fetch("http://localhost:8080/quoteapi/authentication/logout", {
+            await fetch(`${import.meta.env.VITE_API_URL}/authentication/logout`, {
                 method: "POST",
                 credentials: "include"
             });

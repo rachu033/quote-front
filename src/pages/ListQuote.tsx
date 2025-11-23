@@ -13,7 +13,7 @@ interface QuoteDTO {
     quoteDateInfo: DateInfo;
     period?: string;
     source?: string;
-    favorite?: boolean; // nowe pole
+    favorite?: boolean;
 }
 
 interface AuthorDTO {

@@ -1,7 +1,12 @@
 import { useEffect, useState, useCallback } from "react";
 import "../styles/pages/AdminPanel.css";
 
+interface Author {
+    name: string;
+}
+
 interface Quote {
+    author: Author;
     id: number;
     text: string;
 }

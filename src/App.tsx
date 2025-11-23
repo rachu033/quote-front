@@ -34,7 +34,6 @@ const App = () => {
                         <Route path="/account" element={<AccountPanel />} />
                         <Route path="/home" element={<Home />} />
 
-                        {/* Catch-all: przekierowanie niepoprawnych tras na Home */}
                         <Route path="*" element={<Navigate to="/home" replace />} />
                     </Routes>
                 </Layout>
