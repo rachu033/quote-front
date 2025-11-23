@@ -13,7 +13,7 @@ const AddAuthor: React.FC = () => {
 
     const showToast = (message: string, type: "success" | "error" = "success") => {
         setToast({ message, type });
-        setTimeout(() => setToast(null), 3000); // toast znika po 3 sek
+        setTimeout(() => setToast(null), 3000);
     };
 
     const handleAuthorSubmit = async (data: {

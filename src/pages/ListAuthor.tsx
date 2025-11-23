@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/pages/ListAuthor.css";
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 interface AuthorDTO {
     id: number;
@@ -25,10 +25,10 @@ interface Country {
 }
 
 const ListAuthor: React.FC = () => {
-    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
+    const { i18n } = useTranslation();
 
-    const [sortBy, setSortBy] = useState<string>("name"); // domyślnie sortujemy po nazwie
+    const [sortBy, setSortBy] = useState<string>("name");
     const [sortAsc, setSortAsc] = useState<boolean>(true);
 
     const [authors, setAuthors] = useState<AuthorDTO[]>([]);
@@ -100,10 +100,10 @@ const ListAuthor: React.FC = () => {
 
     const handleSort = (field: string) => {
         if (sortBy === field) {
-            setSortAsc(!sortAsc); // zmiana kierunku sortowania
+            setSortAsc(!sortAsc);
         } else {
             setSortBy(field);
-            setSortAsc(true); // nowa kolumna, zaczynamy rosnąco
+            setSortAsc(true);
         }
 
         fetchAuthors(
@@ -239,7 +239,7 @@ const ListAuthor: React.FC = () => {
 
                             <input
                                 type="text"
-                                placeholder={t('searchPlaceholder')}
+                                placeholder={"Kogo szukasz?"}
                                 value={searchName}
                                 onChange={(e) => setSearchName(e.target.value)}
                             />
@@ -315,7 +315,7 @@ const ListAuthor: React.FC = () => {
                                 </div>
                             )}
 
-                            <button type="submit">{t('search')}</button>
+                            <button type="submit">{"Szukaj"}</button>
                         </form>
                     </div>
 
@@ -332,12 +332,12 @@ const ListAuthor: React.FC = () => {
                                 <thead>
                                 <tr>
                                     <th onClick={() => handleSort("name")}>
-                                        {t("nameAndSurname")}
+                                        {"Imię i nazwisko"}
                                         {sortBy === "name" ? (sortAsc ? " ▲" : " ▼") : null}
                                     </th>
-                                    <th>{t("nationality")}</th>
-                                    <th>{t("born")}</th>
-                                    <th>{t("died")}</th>
+                                    <th>{"Narodowość"}</th>
+                                    <th>{"Urodzony"}</th>
+                                    <th>{"Zmarł"}</th>
                                 </tr>
                                 </thead>
 
@@ -373,7 +373,7 @@ const ListAuthor: React.FC = () => {
                             </table>
 
                             <div className="pagination-panel">
-                                <span>{t('page', { page: page + 1, total: totalPages })}</span>
+                                <span>{"Strona " + (page + 1) + " z " + totalPages}</span>
 
                                 <button disabled={page === 0} onClick={() => handlePageChange(page - 1)}>
                                     ◀

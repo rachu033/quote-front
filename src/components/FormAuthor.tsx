@@ -100,7 +100,6 @@ const FormAuthor: React.FC<FormAuthorSectionProps> = ({ onSubmit, initialData, o
         );
         setBirthDateEra(initialData.birthDateInfo.era === "AD" ? "n.e." : "p.n.e.");
 
-        // DEATH DATE
         setDeathDateType(
             initialData.deathDateInfo.type === "Date"
                 ? "Data"
@@ -127,11 +126,11 @@ const FormAuthor: React.FC<FormAuthorSectionProps> = ({ onSubmit, initialData, o
 
     const validateDate = (type: string, value: string) => {
         switch (type) {
-            case "Data": // DD.MM.YYYY
+            case "Data":
                 return /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(value);
-            case "Rok": // liczba całkowita
+            case "Rok":
                 return /^\d+$/.test(value);
-            case "Wiek": // Century w rzymskich liczbach
+            case "Wiek":
                 return /^([IVXLCDM]+)\s*w\.?$/i.test(value.trim());
             default:
                 return false;
@@ -159,7 +158,6 @@ const FormAuthor: React.FC<FormAuthorSectionProps> = ({ onSubmit, initialData, o
         return () => clearTimeout(timer);
     }, [deathDateValue, deathDateType]);
 
-    // ---------------- POBIERANIE KRAJÓW ----------------
     useEffect(() => {
         if (searchVisible && allCountries.length === 0) {
             fetch("https://flagcdn.com/en/codes.json")

@@ -36,7 +36,6 @@ const ModAuthor: React.FC = () => {
         setTimeout(() => setToast(null), 3000);
     };
 
-    // -------------------- FETCH AUTHORS --------------------
     const fetchAuthors = async () => {
         setLoading(true);
         try {
@@ -65,7 +64,6 @@ const ModAuthor: React.FC = () => {
         fetchAuthors();
     }, []);
 
-    // -------------------- HANDLE MODERATION SUBMIT --------------------
     const handleModerationSubmit = async (data: {
         name: string;
         birthDateInfo: DateInfo;

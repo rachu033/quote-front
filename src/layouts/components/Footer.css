@@ -3,16 +3,15 @@
     color: #fff;
     padding: 15px 30px;
     display: flex;
-    justify-content: space-between; /* autor z lewej, ikony z prawej */
-    align-items: center;
+    justify-content: space-between;    align-items: center;
     font-size: 14px;
-    flex-wrap: wrap; /* dla mniejszych ekranów */
+    flex-wrap: wrap;
 }
-
+/* */
 .author {
     font-size: 2.0vh;
     font-weight: bold;
-    color: #ccc; /* szary kolor dla autora */
+    color: #ccc;
 }
 
 .tech-icons {

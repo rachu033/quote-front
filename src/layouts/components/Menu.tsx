@@ -18,12 +18,11 @@ export default function Menu() {
             console.error("Błąd przy wylogowaniu:", err);
         } finally {
             setUser(null);
-            //window.location.href = "/home"; // opcjonalnie redirect
         }
     };
 
     const getAddLink = (type: string) => {
-        if (!user) return "#0"; // brak dostępu jeśli niezalogowany
+        if (!user) return "#0";
         if (user.isModerator) {
             return type === "quote" ? "modquote" : "modauthor";
         }
@@ -33,21 +32,21 @@ export default function Menu() {
     return (
         <nav className="menu">
             <ul>
-                <li><Link to="/home">{t("menu.home")}</Link></li>
+                <li><Link to="/home">{t("Strona główna")}</Link></li>
 
                 {/* CYTATY */}
                 <li>
-                    <Link to="/quotes">{t("menu.quotes.title")}</Link>
+                    <Link to="/quotes">{t("Cytaty")}</Link>
                     <ul className="sub-menu">
-                        <li><Link to="/quotes">{t("menu.quotes.list")}</Link></li>
+                        <li><Link to="/quotes">{t("Lista cytatów")}</Link></li>
 
                         <li>
                             <Link
                                 to={getAddLink("quote")}
                                 className={!user ? "disabled" : ""}
-                                title={!user ? t("menu.loginRequired") : ""}
+                                title={!user ? t("Wymaga zalogowania") : ""}
                             >
-                                {t("menu.quotes.add")}
+                                {t("Dodaj cytat")}
                             </Link>
                         </li>
                     </ul>
@@ -55,17 +54,17 @@ export default function Menu() {
 
                 {/* AUTORZY */}
                 <li>
-                    <Link to="/authors">{t("menu.authors.title")}</Link>
+                    <Link to="/authors">{t("Autorzy")}</Link>
                     <ul className="sub-menu">
-                        <li><Link to="/authors">{t("menu.authors.list")}</Link></li>
+                        <li><Link to="/authors">{t("Lista autorów")}</Link></li>
 
                         <li>
                             <Link
                                 to={getAddLink("author")}
                                 className={!user ? "disabled" : ""}
-                                title={!user ? t("menu.loginRequired") : ""}
+                                title={!user ? t("Wymaga zalogowania") : ""}
                             >
-                                {t("menu.authors.add")}
+                                {t("Dodaj autora")}
                             </Link>
                         </li>
                     </ul>
@@ -73,22 +72,22 @@ export default function Menu() {
 
                 {/* PROFIL */}
                 <li>
-                    <Link to={user ? "/account" : "login"}>{t("menu.profile.title")}</Link>
+                    <Link to={user ? "/account" : "login"}>{t("Konto")}</Link>
                     <ul className="sub-menu">
                         {user ? (
                             <>
-                                <li><Link to="/account">{t("menu.profile.account")}</Link></li>
-                                <li><Link to="/favorite">{t("menu.profile.favorite")}</Link></li>
+                                <li><Link to="/favorite">{t("Ulubione")}</Link></li>
+                                <li><Link to="/account">{t("Profil")}</Link></li>
                                 <li>
                                     <a onClick={handleLogout} className="logout-btn">
-                                        {t("menu.profile.logout")}
+                                        {t("Wyloguj")}
                                     </a>
                                 </li>
                             </>
                         ) : (
                             <>
-                                <li><Link to="/login">{t("menu.profile.login")}</Link></li>
-                                <li><Link to="/register">{t("menu.profile.register")}</Link></li>
+                                <li><Link to="/login">{t("Zaloguj")}</Link></li>
+                                <li><Link to="/register">{t("Zarejestruj")}</Link></li>
                             </>
                         )}
                     </ul>
