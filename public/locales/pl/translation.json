@@ -1,0 +1,62 @@
+{
+  "login": "Zaloguj się",
+  "register": "Zarejestruj się",
+  "forgotPassword": "Zapomniałeś hasła?",
+  "welcomeBack": "Witaj ponownie!",
+  "welcomeText": "Aby być z nami na bieżąco, zaloguj się proszę",
+  "createAccount": "Utwórz Konto",
+  "helloFriend": "Cześć, Przyjacielu!",
+  "registerText": "Wprowadź dane i rozpocznij z nami przygodę",
+  "email": "Email",
+  "password": "Hasło",
+  "name": "Imię",
+  "orUseEmail": "lub użyj e-maila",
+  "orUseAccount": "lub użyj swojego konta",
+  "changeLanguage": "Zmień język",
+  "resetPassword": "Resetowanie hasła",
+  "enterEmail": "Wprowadź swój adres e-mail",
+  "sendResetLink": "Wyślij",
+  "cancel": "Anuluj",
+  "resetLinkSent": "Link resetujący został wysłany na Twój e-mail",
+  "unexpectedError": "Wystąpił nieoczekiwany błąd",
+
+  "menu": {
+    "home": "Strona główna",
+    "quotes": {
+      "title": "Cytaty",
+      "list": "Lista cytatów",
+      "add": "Dodaj cytat"
+    },
+    "authors": {
+      "title": "Autorzy",
+      "list": "Lista autorów",
+      "add": "Dodaj autora"
+    },
+    "profile": {
+      "title": "Profil",
+      "account": "Panel konta",
+      "admin": "Panel administratora",
+      "login": "Zaloguj się",
+      "register": "Zarejestruj się",
+      "logout": "Wyloguj się",
+      "favorite": "Ulubione"
+    },
+    "about": "O nas",
+    "loginRequired": "Musisz być zalogowany"
+  },
+
+  "searchPlaceholder": "Wpisz kogo szukasz",
+  "showUnapproved": "Pokaż niezatwierdzonych",
+  "search": "Szukaj",
+  "loadingAuthors": "Ładowanie autorów...",
+  "noResults": "Brak wyników.",
+  "page": "Strona {{page}} z {{total}}",
+  "approx": "około",
+  "eraBC": "p. n. e.",
+  "eraAD": "",
+  "nameAndSurname": "Imię i nazwisko",
+  "nationality": "Narodowość",
+  "born": "Urodzony",
+  "died": "Zmarł"
+
+}

@@ -1,0 +1,57 @@
+.account-container {
+    display: flex;
+    min-height: 80vh;
+    background-color: #2c2c2c;
+}
+
+.account-panel {
+    max-width: 600px;
+    min-width: 50vw;
+    margin: 5vh auto;
+    padding: 100px 50px;
+    background: #1f1f1f;
+    border-radius: 10px;
+    color: white;
+}
+
+.account-item {
+    margin: 15px 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.account-item input {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background: #2c2c2c;
+    color: white;
+}
+
+.account-item button {
+    padding: 5px 10px;
+    background: #444;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.delete-btn {
+    margin-top: 20px;
+    padding: 10px 14px;
+    background: #b02a2a;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.error {
+    color: #f77;
+}
+
+.success {
+    color: #8f8;
+}

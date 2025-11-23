@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap');
+
+.admin-panel-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #2a2a2a;
+    min-height: 80vh;
+    padding: 20px;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.admin-panel-container h1 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+}
+
+.qod-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #333;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.qod-table th,
+.qod-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+}
+
+.qod-table th {
+    background-color: #444;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.qod-table tr:hover {
+    background-color: #555;
+}
+
+.qod-table td button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.qod-table td button:hover {
+    background-color: #c9302c;
+}
+
+.error-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100vw;
+    background-color: #2a2a2a;
+    color: red;
+    font-size: 24px;
+    text-align: center;
+}
