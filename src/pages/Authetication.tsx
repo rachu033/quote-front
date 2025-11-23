@@ -170,7 +170,7 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
                         <span>{"Lub stwórz konto"}</span>
                         <input type="email" placeholder={"Email"} value={email} onChange={e => setEmail(e.target.value)} required />
                         <input type="password" placeholder={"Hasło"} value={password} onChange={e => setPassword(e.target.value)} required />
-                        <a href="#" onClick={e => { e.preventDefault(); setShowResetModal(true); }}>{"Zapomniałem hasła"}</a>
+                        <a href="#" onClick={e => { e.preventDefault(); setShowResetModal(true); }}>{"Zapomniałem mojego hasła"}</a>
                         <button type="submit">{"Zaloguj"}</button>
                         {error && <p className="error">{error}</p>}
                     </form>
