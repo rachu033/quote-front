@@ -31,7 +31,7 @@ interface DateInfo {
 const ListQuote: React.FC = () => {
     const location = useLocation();
 
-    const [sortBy, setSortBy] = useState<string>("author.name"); // domyślnie
+    const [sortBy, setSortBy] = useState<string>("author.name");
     const [sortAsc, setSortAsc] = useState<boolean>(true);
 
     useEffect(() => {
@@ -120,10 +120,10 @@ const ListQuote: React.FC = () => {
 
     const handleSort = (field: string) => {
         if (sortBy === field) {
-            setSortAsc(!sortAsc); // zmiana kierunku
+            setSortAsc(!sortAsc);
         } else {
             setSortBy(field);
-            setSortAsc(true); // nowa kolumna zawsze rosnąco
+            setSortAsc(true);
         }
 
         setPage(0);

@@ -12,10 +12,9 @@ export default function Layout({ children }: LayoutProps) {
         <div className="layout-container">
             <Menu />
             <div className="scroll-container">
-                <div className="layout-content">
+                <main className="layout-content">
                     {children}
-                </div>
-
+                </main>
                 <Footer/>
             </div>
         </div>

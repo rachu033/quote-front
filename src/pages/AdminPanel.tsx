@@ -27,11 +27,9 @@ const AdminPanel: React.FC = () => {
     const [qodList, setQodList] = useState<QuoteOfDate[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-// Dodawanie
     const [newQuoteId, setNewQuoteId] = useState<number | "">("");
     const [newDate, setNewDate] = useState<string>("");
 
-// Wyszukiwanie
     const [searchText, setSearchText] = useState("");
     const [searchResults, setSearchResults] = useState<Quote[]>([]);
     const [isSearching, setIsSearching] = useState(false);

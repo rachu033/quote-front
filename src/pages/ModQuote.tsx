@@ -48,7 +48,6 @@ const ModQuote: React.FC = () => {
         setTimeout(() => setToast(null), 3000);
     };
 
-    // ------------------------------ FETCH QUOTES ------------------------------
     const fetchQuotes = async () => {
         setLoading(true);
         try {
@@ -132,7 +131,6 @@ const ModQuote: React.FC = () => {
         }
     };
 
-    // ------------------------------ DELETE QUOTE ------------------------------
     const handleReject = async () => {
         if (!selectedQuote) {
             showToast("Wybierz cytat, który chcesz odrzucić", "error");

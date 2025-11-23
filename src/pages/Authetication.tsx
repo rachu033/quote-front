@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/pages/Authentication.css";
-import { useTranslation } from "react-i18next";
 import GoogleIcon from "../assets/google.svg";
 import { AuthContext } from "../context/AuthContext";
 import {
@@ -20,7 +19,6 @@ interface AuthProps {
 
 const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
     const [activePanel, setActivePanel] = useState<"signin" | "signup">(initialMode);
-    const { t } = useTranslation();
     const navigate = useNavigate();
     const { setUser } = useContext(AuthContext);
 
@@ -71,7 +69,7 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
             }
         } catch (err: unknown) {
             if (err instanceof Error) setError(err.message);
-            else setError(t("unexpectedError"));
+            else setError("Nieoczekiwany błąd");
         }
     };
 
@@ -80,7 +78,7 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             if (!userCredential.user.emailVerified) {
-                alert(t("verifyEmailBeforeLogin"));
+                alert("Zweryfikuj email");
                 return;
             }
 
@@ -101,7 +99,7 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
             }
         } catch (err: unknown) {
             if (err instanceof Error) setError(err.message);
-            else setError(t("unexpectedError"));
+            else setError("Niespodziewany błąd");
         }
     };
 
@@ -122,10 +120,10 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
                 credentials: "include",
             });
 
-            alert(t("checkEmailVerification"));
+            alert("Zweryfikuj email!");
         } catch (err: unknown) {
             if (err instanceof Error) setError(err.message);
-            else setError(t("unexpectedError"));
+            else setError("Nieoczkiwany błąd");
         }
     };
 
@@ -134,14 +132,14 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
             await sendPasswordResetEmail(auth, resetEmail);
             setShowResetModal(false);
             setResetEmail("");
-            setToastMessage(t("resetLinkSent"));
+            setToastMessage("Link resetujący wysłany");
             setShowToast(true);
             setTimeout(() => setShowToast(false), 3000);
         } catch (err: unknown) {
             setShowResetModal(false);
             setResetEmail("");
             if (err instanceof Error) setToastMessage(err.message);
-            else setToastMessage(t("unexpectedError"));
+            else setToastMessage("Nieoczekiwany błąd");
             setShowToast(true);
             setTimeout(() => setShowToast(false), 3000);
         }
@@ -153,11 +151,11 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
                 {/* REGISTER PANEL */}
                 <div className="form-container sign-up-container">
                     <form onSubmit={handleRegister}>
-                        <h1>{t("createAccount")}</h1>
-                        <input type="text" placeholder={t("name")} value={name} onChange={e => setName(e.target.value)} required />
-                        <input type="email" placeholder={t("email")} value={email} onChange={e => setEmail(e.target.value)} required />
-                        <input type="password" placeholder={t("password")} value={password} onChange={e => setPassword(e.target.value)} required />
-                        <button type="submit">{t("register")}</button>
+                        <h1>{"Załóż konto"}</h1>
+                        <input type="text" placeholder={"Nick"} value={name} onChange={e => setName(e.target.value)} required />
+                        <input type="email" placeholder={"Email"} value={email} onChange={e => setEmail(e.target.value)} required />
+                        <input type="password" placeholder={"Hasło"} value={password} onChange={e => setPassword(e.target.value)} required />
+                        <button type="submit">{"Zarejestruj"}</button>
                         {error && <p className="error">{error}</p>}
                     </form>
                 </div>
@@ -165,15 +163,15 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
                 {/* LOGIN PANEL */}
                 <div className="form-container sign-in-container">
                     <form onSubmit={handleLogin}>
-                        <h1>{t("login")}</h1>
+                        <h1>{"Zaloguj"}</h1>
                         <div className="social-container">
                             <img src={GoogleIcon} alt="Google" className="google-icon" onClick={handleGoogleLogin} />
                         </div>
-                        <span>{t("orUseAccount")}</span>
-                        <input type="email" placeholder={t("email")} value={email} onChange={e => setEmail(e.target.value)} required />
-                        <input type="password" placeholder={t("password")} value={password} onChange={e => setPassword(e.target.value)} required />
-                        <a href="#" onClick={e => { e.preventDefault(); setShowResetModal(true); }}>{t("forgotPassword")}</a>
-                        <button type="submit">{t("login")}</button>
+                        <span>{"Lub stwórz konto"}</span>
+                        <input type="email" placeholder={"Email"} value={email} onChange={e => setEmail(e.target.value)} required />
+                        <input type="password" placeholder={"Hasło"} value={password} onChange={e => setPassword(e.target.value)} required />
+                        <a href="#" onClick={e => { e.preventDefault(); setShowResetModal(true); }}>{"Zapomniałem hasła"}</a>
+                        <button type="submit">{"Zaloguj"}</button>
                         {error && <p className="error">{error}</p>}
                     </form>
                 </div>
@@ -182,14 +180,14 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
                 <div className="overlay-container">
                     <div className="overlay">
                         <div className="overlay-panel overlay-left">
-                            <h1>{t("welcomeBack")}</h1>
-                            <p>{t("welcomeText")}</p>
-                            <button className="ghost" onClick={() => setActivePanel("signin")}>{t("login")}</button>
+                            <h1>{"Witaj ponownie"}</h1>
+                            <p>{"Dobrze Cię widzieć"}</p>
+                            <button className="ghost" onClick={() => setActivePanel("signin")}>{"Zaloguj się"}</button>
                         </div>
                         <div className="overlay-panel overlay-right">
-                            <h1>{t("helloFriend")}</h1>
-                            <p>{t("registerText")}</p>
-                            <button className="ghost" onClick={() => setActivePanel("signup")}>{t("register")}</button>
+                            <h1>{"Witaj"}</h1>
+                            <p>{"Nie masz konta?"}</p>
+                            <button className="ghost" onClick={() => setActivePanel("signup")}>{"Zarejestruj"}</button>
                         </div>
                     </div>
                 </div>
@@ -198,11 +196,11 @@ const Authentication: React.FC<AuthProps> = ({ initialMode = "signin" }) => {
                 {showResetModal && (
                     <div className="modal-backdrop">
                         <div className="modal">
-                            <h2>{t("resetPassword")}</h2>
-                            <input type="email" placeholder={t("enterEmail")} value={resetEmail} onChange={e => setResetEmail(e.target.value)} />
+                            <h2>{"Resetowanie hasła"}</h2>
+                            <input type="email" placeholder={"Wprowadź maila"} value={resetEmail} onChange={e => setResetEmail(e.target.value)} />
                             <div className="modal-buttons">
-                                <button onClick={handlePasswordReset}>{t("sendResetLink")}</button>
-                                <button onClick={() => setShowResetModal(false)}>{t("cancel")}</button>
+                                <button onClick={handlePasswordReset}>{"Wyślij link"}</button>
+                                <button onClick={() => setShowResetModal(false)}>{"Anuluj"}</button>
                             </div>
                         </div>
                     </div>
