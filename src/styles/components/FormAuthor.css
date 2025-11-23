@@ -1,0 +1,139 @@
+.form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-content label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.form-content input {
+    height: 6vh;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #777;
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.button-row {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid white;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.message {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.flags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.flag {
+    width: 48px;
+    height: 36px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.flag:hover {
+    transform: scale(1.1);
+}
+
+.search-panel {
+    margin-top: 10px;
+}
+
+.search-panel input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #777;
+    margin-bottom: 8px;
+}
+
+.flags-grid img {
+    cursor: pointer;
+}
+
+.country-search-popup {
+    position: fixed;
+    top: 20vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 999;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.country-search-popup input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #777;
+    margin-bottom: 8px;
+}
+
+.country-suggestions span {
+    color: white;
+    font-size: 14px;
+    display: flex;           /* nowa linia */
+    align-items: center;     /* wyśrodkowanie pionowe względem linii flex */
+    height: 100%;            /* dopasowanie do wysokości rodzica */
+}
+
+.country-suggestions {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.country-suggestion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.country-suggestion:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.country-suggestion img,
+. {
+    width: 40px;
+    height: 30px;
+    border-radius: 4px;
+}
+
+.date-row {
+    margin-top: 0;
+    gap: 10px;
+}

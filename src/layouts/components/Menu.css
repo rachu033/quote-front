@@ -1,0 +1,77 @@
+.menu {
+    height: 10vh;
+    background: #111;
+    position: sticky;
+    top: 0; left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.menu ul {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.menu li {
+    position: relative;
+    flex: 1;
+}
+
+.menu a {
+    display: block;
+    padding: 3vh 5px;
+    text-decoration: none;
+    color: #fff !important;
+    font-weight: bold;
+    text-align: center;
+    background: inherit;
+    transition: background .3s;
+    font-size: calc(2.5vh + 1px);
+}
+
+.menu a:hover {
+    background: #333;
+}
+
+.sub-menu {
+    position: absolute;
+    top: 100%; left: 0;
+    width: 100%;
+    background: #222;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .4s ease, opacity .4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-menu a {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.menu li:hover > .sub-menu {
+    max-height: 480px;
+    opacity: 1;
+}
+
+a.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.logout-btn {
+    background: #aa1a1a !important;
+    color: #fff !important;
+    font-weight: bold;
+    transition: background .3s;
+}
+
+.logout-btn:hover {
+    background: #880f0f !important;
+}

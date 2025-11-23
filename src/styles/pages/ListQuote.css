@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap');
+
+.container-quote-list {
+    display: flex;
+    background-color: #2c2c2c;
+    min-height: 80vh;
+}
+
+.quote-list-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.quote-search-panel-wrapper {
+    width: 100%;
+    background: #222;
+    padding: 15px;
+}
+
+.quote-search-panel {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+}
+
+.quote-search-panel input,
+.quote-search-panel select {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #444;
+    background: #2c2c2c;
+    color: white;
+    border-radius: 4px;
+    min-width: 150px;
+}
+
+.checkbox-label {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+/* Przycisk */
+.quote-search-panel button {
+    padding: 8px 14px;
+    border: none;
+    background: #555;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.quote-search-panel button:hover {
+    background: #777;
+}
+
+.quote-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1b1b1b;
+    color: white;
+    overflow: hidden;
+}
+
+.quote-table th {
+    text-align: left;
+    padding: 12px;
+    background: #2a2a2a;
+    border-bottom: 2px solid #444;
+    color: white;
+}
+
+.quote-table td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    color: #ddd;
+}
+
+.quote-table tr:hover td {
+    background: #252525;
+}
+
+.quote-error-text {
+    color: red;
+}
+
+.no-results {
+    color: #ccc;
+}
+
+.pagination-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.pagination-panel select {
+    height: 32px;
+    border-radius: 4px;
+}
+
+.favorite-icon {
+    width: 32px;
+    height: 32px;
+    filter: brightness(0) saturate(100%) invert(34%) sepia(77%) saturate(372%) hue-rotate(80deg);
+    transition: transform 0.2s;
+}
+
+.favorite-icon:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}

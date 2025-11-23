@@ -1,0 +1,61 @@
+{
+  "login": "Sign In",
+  "register": "Sign Up",
+  "forgotPassword": "Forgot your password?",
+  "welcomeBack": "Welcome Back!",
+  "welcomeText": "To keep connected with us please login with your personal info",
+  "createAccount": "Create Account",
+  "helloFriend": "Hello, Friend!",
+  "registerText": "Enter your personal details and start your journey with us",
+  "email": "Email",
+  "password": "Password",
+  "name": "Name",
+  "orUseEmail": "or use your email",
+  "orUseAccount": "or use your account",
+  "changeLanguage": "Change language",
+  "resetPassword": "Reset Password",
+  "enterEmail": "Enter your email",
+  "sendResetLink": "Send",
+  "cancel": "Cancel",
+  "resetLinkSent": "A reset link has been sent to your email",
+  "unexpectedError": "Unexpected error occurred",
+
+  "menu": {
+    "home": "Home",
+    "quotes": {
+      "title": "Quotes",
+      "list": "List of Quotes",
+      "add": "Add Quote"
+    },
+    "authors": {
+      "title": "Authors",
+      "list": "List of Authors",
+      "add": "Add Author"
+    },
+    "profile": {
+      "title": "Profile",
+      "account": "Account Panel",
+      "admin": "Admin Panel",
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "favorite": "Favorite"
+    },
+    "about": "About",
+    "loginRequired": "Login required"
+  },
+
+  "searchPlaceholder": "Search by name",
+  "showUnapproved": "Show unapproved",
+  "search": "Search",
+  "loadingAuthors": "Loading authors...",
+  "noResults": "No results.",
+  "page": "Page {{page}} of {{total}}",
+  "approx": "c.",
+  "eraBC": "BC",
+  "eraAD": "AD",
+  "nameAndSurname": "Name",
+  "nationality": "Nationality",
+  "born": "Born",
+  "died": "Died"
+}

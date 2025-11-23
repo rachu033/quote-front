@@ -1,0 +1,35 @@
+.Footer {
+    background: #111;
+    color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between; /* autor z lewej, ikony z prawej */
+    align-items: center;
+    font-size: 14px;
+    flex-wrap: wrap; /* dla mniejszych ekranów */
+}
+
+.author {
+    font-size: 2.0vh;
+    font-weight: bold;
+    color: #ccc; /* szary kolor dla autora */
+}
+
+.tech-icons {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.tech-icons img {
+    width: 32px;
+    height: 32px;
+    filter: grayscale(100%) brightness(70%); /* szare ikony */
+    transition: transform 0.3s, filter 0.3s;
+    cursor: pointer;
+}
+
+.tech-icons img:hover {
+    transform: scale(1.15);
+    filter: none; /* przywraca oryginalny kolor */
+}

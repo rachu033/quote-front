@@ -1,0 +1,11 @@
+html, body {
+    background: #181818;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+html, body, #root {
+    height: auto;
+    width: auto;
+}

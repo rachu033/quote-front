@@ -1,0 +1,158 @@
+.container-author-list {
+    display: flex;
+    background-color: #2c2c2c;
+    min-height: 80vh;
+}
+
+.author-list-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.author-search-panel-wrapper {
+    background: #222;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.author-search-panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 100%;
+    gap: 50px;
+}
+
+.author-search-panel input,
+.author-search-panel select {
+    flex: 0 1 220px;
+    padding: 8px;
+    border: 1px solid #444;
+    background: #2c2c2c;
+    color: white;
+    border-radius: 4px;
+    min-width: 150px;
+}
+
+.author-search-panel button {
+    align-self: center;
+    border: none;
+    background: #555;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.author-search-panel button:hover {
+    background: #777;
+}
+
+.author-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1b1b1b;
+    color: white;
+}
+
+.author-table th {
+    text-align: left;
+    padding: 12px;
+    background: #2a2a2a;
+    border-bottom: 2px solid #444;
+}
+
+.author-table td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+}
+
+.flag-column {
+    display: flex;
+    gap: 10px;
+}
+
+.author-table tr:hover td {
+    background: #252525;
+}
+
+.author-error-text {
+    color: red;
+}
+
+.no-results {
+    color: #ccc;
+}
+
+.flags-grid {
+    display: flex;
+    flex-direction: row;
+}
+
+.flags-grid img {
+    cursor: pointer;
+}
+
+.country-search-popup {
+    position: fixed;
+    top: 20vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 999;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.country-search-popup input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #777;
+    margin-bottom: 8px;
+}
+
+.country-suggestions {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.country-suggestion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.country-suggestion:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.country-suggestion img,
+.flag-mini {
+    width: 40px;
+    height: 30px;
+    border-radius: 4px;
+}
+
+.pagination-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.pagination-panel select {
+    height: 32px;
+    border-radius: 4px;
+}

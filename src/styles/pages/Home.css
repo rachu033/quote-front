@@ -1,0 +1,83 @@
+/* Główne tło strony */
+.home-container {
+    padding: 40px;
+    background-color: #222; /* ciemniejsze tło */
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.loading {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 50px;
+    color: #fff;
+}
+
+.qod-card {
+    background: #2c2c44;
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.qod-card h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #ffd700; /* złoty nagłówek */
+}
+
+.qod-text {
+    font-size: 22px;
+    font-style: italic;
+    margin: 20px 0;
+    line-height: 1.5;
+    color: #fff;
+}
+
+.qod-author {
+    font-weight: bold;
+    font-size: 20px;
+    color: #a0a0ff; /* delikatny niebieski */
+    margin-top: 15px;
+}
+
+/* Kafelki z informacjami */
+.stats-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* od lewa do prawa */
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 180px;
+    padding: 25px;
+    border-radius: 12px;
+    background: #2c2c44;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    text-align: center;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    background: #3a3a5c;
+}
+
+.stat-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #ffd700; /* złote nagłówki */
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+}

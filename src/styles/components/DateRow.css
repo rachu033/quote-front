@@ -1,0 +1,24 @@
+.date-row {
+    display: flex;
+    align-items: center;
+}
+
+.date-row select,
+.date-row input {
+    flex: 1;
+    height: 6vh;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #777;
+    border-radius: 4px;
+    color: white;
+    padding: 4px;
+}
+
+.date-row input {
+    min-width: 100px;
+}
+
+.date-row select option {
+    background: #222;
+    color: white;
+}
