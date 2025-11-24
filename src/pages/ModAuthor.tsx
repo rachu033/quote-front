@@ -71,32 +71,52 @@ const ModAuthor: React.FC = () => {
         nationalityPrimary: string;
         nationalitySecondary: string;
     }) => {
-        if (!selectedAuthor) {
-            showToast("Wybierz autora z listy po prawej", "error");
-            return;
-        }
-
-        const updatedAuthor = {
-            id: selectedAuthor.id,
-            ...data
-        };
-
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/moderate/author`, {
-                method: "PUT",
+            let url = "";
+            let method: "POST" | "PUT" = "POST";
+
+            let bodyData: { id?: number } & typeof data;
+
+            if (selectedAuthor) {
+                url = `${import.meta.env.VITE_API_URL}/moderate/author`;
+                method = "PUT";
+                bodyData = { id: selectedAuthor.id, ...data }; // ✅ id jest teraz dozwolone
+            } else {
+                url = `${import.meta.env.VITE_API_URL}/users/submitAuthor`;
+                method = "POST";
+                bodyData = { ...data };
+            }
+
+            const res = await fetch(url, {
+                method,
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(updatedAuthor),
+                body: JSON.stringify(bodyData),
             });
 
-            if (!res.ok) throw new Error("Błąd podczas moderacji autora");
+            if (!res.ok) throw new Error(
+                selectedAuthor
+                    ? "Błąd podczas zapisu zmian autora"
+                    : "Błąd podczas dodawania nowego autora"
+            );
 
-            showToast("Autor został zapisany po moderacji!", "success");
+            showToast(
+                selectedAuthor
+                    ? "Autor został zapisany po moderacji!"
+                    : "Nowy autor został dodany!",
+                "success"
+            );
+
             setSelectedAuthor(null);
-            await fetchAuthors();
+            fetchAuthors();
         } catch (err) {
             console.error(err);
-            showToast("Błąd podczas zapisu", "error");
+            showToast(
+                selectedAuthor
+                    ? "Błąd podczas zapisu zmian autora"
+                    : "Błąd podczas dodawania nowego autora",
+                "error"
+            );
         }
     };
 

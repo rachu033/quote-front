@@ -25,13 +25,16 @@ interface AuthorRecord {
 }
 
 interface FormAuthorSectionProps {
-    onSubmit: (data: {
-        name: string;
-        birthDateInfo: DateInfo;
-        deathDateInfo: DateInfo;
-        nationalityPrimary: string;
-        nationalitySecondary: string;
-    }) => void;
+    onSubmit: (
+        data: {
+            name: string;
+            birthDateInfo: DateInfo;
+            deathDateInfo: DateInfo;
+            nationalityPrimary: string;
+            nationalitySecondary: string;
+        },
+        existingAuthor?: AuthorRecord | null
+    ) => void;
 
     initialData?: AuthorRecord | null;
     onReject: () => void;
@@ -253,14 +256,18 @@ const FormAuthor: React.FC<FormAuthorSectionProps> = ({ onSubmit, initialData, o
         const birthDateInfo = mapDateToBackend(birthDateType, birthDateValue, birthDateApprox, birthDateEra);
         const deathDateInfo = mapDateToBackend(deathDateType, deathDateValue, deathDateApprox, deathDateEra);
 
-        onSubmit({
-            name,
-            birthDateInfo,
-            deathDateInfo,
-            nationalityPrimary: nationalities[0] || "",
-            nationalitySecondary: nationalities[1] || ""
-        });
+        onSubmit(
+            {
+                name,
+                birthDateInfo,
+                deathDateInfo,
+                nationalityPrimary: nationalities[0] || "",
+                nationalitySecondary: nationalities[1] || ""
+            },
+            initialData || null
+        );
     };
+
 
     return (
         <div className="form-content">
