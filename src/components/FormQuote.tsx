@@ -216,7 +216,6 @@ const FormQuote: React.FC<FormQuoteFormProps> = ({onSubmit, initialData, onRejec
         if (onSubmit) {
             onSubmit({text, authorId, quoteDateInfo, period, source});
             setMessage("Formularz został wysłany!");
-            clearForm();
         }
     };
 
