@@ -38,7 +38,7 @@ const AdminPanel: React.FC = () => {
 
     const previewQuote = async (id: number) => {
         try {
-            const res = await fetch(`http://localhost:8080/quoteapi/quotes/${id}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}//quotes/${id}`);
             if (!res.ok) throw new Error("Nie udało się pobrać cytatu");
             const data: Quote = await res.json();
             setSelectedQuote(data);
@@ -49,7 +49,7 @@ const AdminPanel: React.FC = () => {
 
     const loadQod = useCallback(async () => {
         try {
-            const res = await fetch("http://localhost:8080/quoteapi/admin/qod/all", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/qod/all`, {
                 credentials: "include"
             });
 
@@ -79,7 +79,7 @@ const AdminPanel: React.FC = () => {
         setIsSearching(true);
 
         const res = await fetch(
-            `http://localhost:8080/quoteapi/quotes?text=${encodeURIComponent(query)}&size=10`
+            `${import.meta.env.VITE_API_URL}/quotes?text=${encodeURIComponent(query)}&size=10`
         );
         const data = await res.json();
 
@@ -109,7 +109,7 @@ const AdminPanel: React.FC = () => {
         params.append("quoteId", newQuoteId.toString());
         params.append("date", newDate);
 
-        const res = await fetch("http://localhost:8080/quoteapi/admin/qod/add", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/qod/add`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -125,7 +125,7 @@ const AdminPanel: React.FC = () => {
     };
 
     const deleteQod = async (id: number) => {
-        const res = await fetch(`http://localhost:8080/quoteapi/admin/qod/delete/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/qod/delete/${id}`, {
             method: "DELETE",
             credentials: "include"
         });
