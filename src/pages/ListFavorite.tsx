@@ -43,8 +43,8 @@ const ListFavorite: React.FC = () => {
     const [searchAuthor, setSearchAuthor] = useState("");
     const [searchSource, setSearchSource] = useState("");
 
-    const [sortBy, setSortBy] = useState<string>("savedAt");
-    const [sortAsc, setSortAsc] = useState<boolean>(false);
+    const [sortBy] = useState<string>("savedAt");
+    const [sortAsc] = useState<boolean>(false);
 
     const fetchFavoriteQuotes = async (
         pageNum?: number,
@@ -105,14 +105,14 @@ const ListFavorite: React.FC = () => {
         }
     };
 
-    const handleSort = (field: string) => {
-        if (sortBy === field) setSortAsc(!sortAsc);
-        else {
-            setSortBy(field);
-            setSortAsc(true);
-        }
-        setPage(0);
-    };
+    // const handleSort = (field: string) => {
+    //     if (sortBy === field) setSortAsc(!sortAsc);
+    //     else {
+    //         setSortBy(field);
+    //         setSortAsc(true);
+    //     }
+    //     setPage(0);
+    // };
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
@@ -186,10 +186,10 @@ const ListFavorite: React.FC = () => {
                         <table className="quote-table">
                             <thead>
                             <tr>
-                                <th onClick={() => handleSort("author.name")}>Autor {sortBy === "author.name" ? (sortAsc ? " ▲" : " ▼") : null}</th>
-                                <th onClick={() => handleSort("text")}>Cytat {sortBy === "text" ? (sortAsc ? " ▲" : " ▼") : null}</th>
+                                <th>Autor</th>
+                                <th>Cytat</th>
                                 <th>Data</th>
-                                <th onClick={() => handleSort("source")}>Źródło {sortBy === "source" ? (sortAsc ? " ▲" : " ▼") : null}</th>
+                                <th>Źródło</th>
                                 <th>Zapisane</th>
                             </tr>
                             </thead>
