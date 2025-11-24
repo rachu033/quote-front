@@ -26,7 +26,7 @@ const Home: React.FC = () => {
     useEffect(() => {
         const fetchQod = async () => {
             try {
-                const res = await fetch("http://localhost:8080/quoteapi/quotes/qod/today");
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/quotes/qod/today`);
                 if (!res.ok) throw new Error("Nie udało się pobrać Cytatu Dnia");
                 const data: QuoteOfDay = await res.json();
                 setQod(data);
