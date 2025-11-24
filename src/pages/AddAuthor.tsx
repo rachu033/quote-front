@@ -61,8 +61,8 @@ const AddAuthor: React.FC = () => {
         <>
             <div className="container-add-author">
                 <div className="left-panel">
-                    <h3>Pomoc</h3>
-                    <p>Po lewej możesz umieścić informacje opisowe lub wskazówki.</p>
+                    <h3>Dodawanie autorów</h3>
+                    <p>Dodaj autora, podając jego imię i nazwisko oraz datę urodzenia i śmierci. Jeśli autor cytatu żyje, pozostaw puste.</p>
                 </div>
 
                 <div className="center-form">
@@ -71,8 +71,8 @@ const AddAuthor: React.FC = () => {
                 </div>
 
                 <div className="right-panel">
-                    <h3>Opis</h3>
-                    <p>Po prawej stronie możesz dodać dowolne informacje kontekstowe.</p>
+                    <h3>Narodowść</h3>
+                    <p>Jeśli autor miał dwa obywatelstwa lub miał silne konotacje z innym narodem, możesz zaznaczyć drugą flagę. W przypadku braku flagi na liście podstawowej wejdź w listę rozszerzoną. Na razie lista rozszerzona dostępna tylko w języku angielskim przez używanie zagranicznego API.</p>
                 </div>
             </div>
 
