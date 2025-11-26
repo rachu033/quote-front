@@ -190,7 +190,7 @@ const ListAuthor: React.FC = () => {
     }, []);
 
     const filteredCountries = allCountries.filter(c =>
-        c.name.toLowerCase().includes(searchTerm.toLowerCase()).sort((a, b) => a.name.localeCompare(b.name))
+        c.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
