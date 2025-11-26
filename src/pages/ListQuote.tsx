@@ -133,17 +133,7 @@ const ListQuote: React.FC = () => {
 
     const toggleFavorite = async (quoteId: number, isFavorite: boolean) => {
         try {
-            if (isFavorite) {
-                await fetch(`${import.meta.env.VITE_API_URL}/users/favorites/${quoteId}`, {
-                    method: 'DELETE',
-                    credentials: 'include',
-                });
-            } else {
-                await fetch(`${import.meta.env.VITE_API_URL}/users/favorites/${quoteId}`, {
-                    method: 'POST',
-                    credentials: 'include',
-                });
-            }
+
             setQuotes(prev =>
                 prev.map(q => q.id === quoteId ? { ...q, favorite: !isFavorite } : q)
             );
