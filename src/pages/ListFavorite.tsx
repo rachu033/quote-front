@@ -10,7 +10,6 @@ interface QuoteDTO {
     text: string;
     author: AuthorDTO;
     quoteDateInfo: DateInfo;
-    period?: string;
     source?: string;
     favorite?: boolean;
 }
@@ -21,8 +20,8 @@ interface AuthorDTO {
 }
 
 interface DateInfo {
-    era : string;
-    precision : string;
+    era: string;
+    precision: string;
     type: string;
     value: string;
 }
@@ -43,55 +42,60 @@ const ListFavorite: React.FC = () => {
     const [searchAuthor, setSearchAuthor] = useState("");
     const [searchSource, setSearchSource] = useState("");
 
-    const [sortBy] = useState<string>("savedAt");
-    const [sortAsc] = useState<boolean>(false);
+    const [sortBy, setSortBy] = useState<string>("author.name");
+    const [sortAsc, setSortAsc] = useState<boolean>(true);
 
     const fetchFavoriteQuotes = async (
-        pageNum?: number,
-        pageSize?: number,
-        text?: string,
-        author?: string,
-        source?: string,
-        sortField?: string,
-        asc?: boolean
+        pageNum = page,
+        pageSize = size,
+        text = searchText,
+        author = searchAuthor,
+        source = searchSource,
+        sortField = sortBy,
+        asc = sortAsc
     ) => {
         if (!user) return;
+
         setLoading(true);
         try {
             const params = new URLSearchParams();
-            params.append("page", String(pageNum ?? page));
-            params.append("size", String(pageSize ?? size));
             if (text) params.append("text", text);
             if (author) params.append("author", author);
             if (source) params.append("source", source);
-            if (sortField) params.append("sortBy", sortField);
-            if (asc !== undefined) params.append("asc", String(asc));
 
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/favorites?${params.toString()}`, {
-                credentials: "include"
-            });
+            params.append("page", String(pageNum));
+            params.append("size", String(pageSize));
+
+            params.append("sortBy", sortField);
+            params.append("asc", String(asc));
+
+            const res = await fetch(
+                `${import.meta.env.VITE_API_URL}/users/favorites?${params.toString()}`,
+                { credentials: "include" }
+            );
 
             if (!res.ok) throw new Error("Błąd podczas pobierania ulubionych cytatów");
 
             const data = await res.json();
-            const mappedQuotes = (data.content || []).map((q: QuoteDTO) => ({
+
+            setQuotes((data.content || []).map((q: QuoteDTO) => ({
                 ...q,
                 favorite: true
-            }));
+            })));
 
-            setQuotes(mappedQuotes);
             setTotalPages(data.totalPages || 1);
-        } catch (err: unknown) {
-            if (err instanceof Error) setError(err.message);
-            else setError("Nieznany błąd");
+            setError(null);
+
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Nieznany błąd");
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchFavoriteQuotes(page, size, searchText, searchAuthor, searchSource, sortBy, sortAsc);
-    }, [page, size, searchText, searchAuthor, searchSource, sortBy, sortAsc, user]);
+        fetchFavoriteQuotes();
+    }, []);
 
     const toggleFavorite = async (quoteId: number) => {
         try {
@@ -105,42 +109,48 @@ const ListFavorite: React.FC = () => {
         }
     };
 
-    // const handleSort = (field: string) => {
-    //     if (sortBy === field) setSortAsc(!sortAsc);
-    //     else {
-    //         setSortBy(field);
-    //         setSortAsc(true);
-    //     }
-    //     setPage(0);
-    // };
+    const handleSort = (field: string) => {
+        const newAsc = sortBy === field ? !sortAsc : true;
+        setSortBy(field);
+        setSortAsc(newAsc);
+        setPage(0);
+
+        fetchFavoriteQuotes(0, size, searchText, searchAuthor, searchSource, field, newAsc);
+    };
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
+        fetchFavoriteQuotes(newPage);
     };
 
     const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSize(Number(e.target.value));
+        const newSize = Number(e.target.value);
+        setSize(newSize);
         setPage(0);
+        fetchFavoriteQuotes(0, newSize);
     };
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         setPage(0);
-        fetchFavoriteQuotes(0, size, searchText, searchAuthor, searchSource, sortBy, sortAsc);
+        fetchFavoriteQuotes(0);
     };
 
     const formatDate = (dateInfo: DateInfo | undefined, lang: string): string => {
         if (!dateInfo) return "";
         if (dateInfo.value === "Unknown") return "-";
+
         const { precision, type, value, era } = dateInfo;
+
         const approx = precision === "Approx" ? (lang === "pl" ? "około" : "c.") : "";
         let eraStr = "";
+
         if (era === "BC") eraStr = lang === "pl" ? "p. n. e." : "BC";
         else if (era === "AD") eraStr = lang === "en" ? "AD" : "";
+
         switch (type) {
             case "Date": {
                 const [day, month, year] = value.split(".");
-                if (era === "AD") return `${day}.${month}.${year}`;
                 return `${approx} ${day}.${month}.${year} ${eraStr}`.trim();
             }
             case "Year":
@@ -155,28 +165,29 @@ const ListFavorite: React.FC = () => {
     return (
         <div className="container-quote-list">
             <div className="quote-list-container">
-                <form className="quote-search-panel" onSubmit={handleSearch}>
-                    <input
-                        type="text"
-                        placeholder="Szukaj po tekście"
-                        value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Szukaj po autorze"
-                        value={searchAuthor}
-                        onChange={(e) => setSearchAuthor(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Szukaj po źródle"
-                        value={searchSource}
-                        onChange={(e) => setSearchSource(e.target.value)}
-                    />
-                    <button type="submit">Szukaj</button>
-                </form>
-
+                <div className="quote-search-panel-wrapper">
+                    <form className="quote-search-panel" onSubmit={handleSearch}>
+                        <input
+                            type="text"
+                            placeholder="Szukaj po tekście"
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Szukaj po autorze"
+                            value={searchAuthor}
+                            onChange={(e) => setSearchAuthor(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Szukaj po źródle"
+                            value={searchSource}
+                            onChange={(e) => setSearchSource(e.target.value)}
+                        />
+                        <button type="submit">Szukaj</button>
+                    </form>
+                </div>
                 {loading && <p>Ładowanie ulubionych cytatów...</p>}
                 {error && <p className="quote-error-text">{error}</p>}
                 {!loading && !error && quotes.length === 0 && <p className="no-results">Brak wyników.</p>}
@@ -186,13 +197,22 @@ const ListFavorite: React.FC = () => {
                         <table className="quote-table">
                             <thead>
                             <tr>
-                                <th>Autor</th>
-                                <th>Cytat</th>
-                                <th>Data</th>
-                                <th>Źródło</th>
-                                <th>Zapisane</th>
+                                <th onClick={() => handleSort("author.name")}>
+                                    Autor {sortBy === "author.name" ? (sortAsc ? " ▲" : " ▼") : null}
+                                </th>
+                                <th onClick={() => handleSort("text")}>
+                                    Cytat {sortBy === "text" ? (sortAsc ? " ▲" : " ▼") : null}
+                                </th>
+                                <th onClick={() => handleSort("quote_date_value")}>
+                                    Data {sortBy === "quote_date_value" ? (sortAsc ? " ▲" : " ▼") : null}
+                                </th>
+                                <th onClick={() => handleSort("source")}>
+                                    Źródło {sortBy === "source" ? (sortAsc ? " ▲" : " ▼") : null}
+                                </th>
+                                <th></th>
                             </tr>
                             </thead>
+
                             <tbody>
                             {quotes.map(q => (
                                 <tr key={q.id}>
@@ -200,7 +220,11 @@ const ListFavorite: React.FC = () => {
                                     <td>{q.text}</td>
                                     <td>{formatDate(q.quoteDateInfo, i18n.language)}</td>
                                     <td>{q.source || "-"}</td>
-                                    <td className="favorite-column" style={{ cursor: 'pointer' }} onClick={() => toggleFavorite(q.id)}>
+                                    <td
+                                        className="favorite-column"
+                                        style={{ cursor: "pointer" }}
+                                        onClick={() => toggleFavorite(q.id)}
+                                    >
                                         <img src={q.favorite ? StarFilled : StarEmpty} className="favorite-icon" />
                                     </td>
                                 </tr>

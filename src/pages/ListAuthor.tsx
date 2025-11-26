@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/pages/ListAuthor.css";
+import SearchIcon from "../assets/search.svg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
@@ -46,8 +47,6 @@ const ListAuthor: React.FC = () => {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(20);
     const [totalPages, setTotalPages] = useState(1);
-
-    const APPROVED = 1;
 
     const basicCountries: Country[] = [
         { code: "pl", name: "Polska" },
@@ -105,67 +104,32 @@ const ListAuthor: React.FC = () => {
             setSortBy(field);
             setSortAsc(true);
         }
-
-        fetchAuthors(
-            searchName,
-            selectedNationalities.join(",") || undefined,
-            APPROVED,
-            page,
-            size,
-            field,
-            sortBy === field ? !sortAsc : true
-        );
+        setPage(0);
+        fetchAuthors(searchName, selectedNationalities.join(",") || undefined, 1, 0, size, field, sortBy === field ? !sortAsc : true);
     };
 
     useEffect(() => {
-        fetchAuthors(
-            undefined,
-            undefined,
-            APPROVED,
-            0,
-            size,
-            sortBy,
-            sortAsc
-        );
+        setPage(0);
+        fetchAuthors(undefined, undefined, 1, 0, size, sortBy, sortAsc);
     }, []);
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
-
         const nationalityParam = selectedNationalities.join(",");
-
         setPage(0);
-        fetchAuthors(
-            searchName,
-            nationalityParam || undefined,
-            APPROVED,
-            0,
-            size,
-        );
+        fetchAuthors(searchName, nationalityParam || undefined, 1, 0, size, sortBy, sortAsc);
     };
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
-        fetchAuthors(
-            searchName,
-            selectedNationalities.join(",") || undefined,
-            APPROVED,
-            newPage,
-            size,
-        );
+        fetchAuthors(searchName, selectedNationalities.join(",") || undefined, 1, newPage, size, sortBy, sortAsc);
     };
 
     const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const newSize = Number(e.target.value);
         setSize(newSize);
         setPage(0);
-        fetchAuthors(
-            searchName,
-            selectedNationalities.join(",") || undefined,
-            APPROVED,
-            0,
-            newSize,
-        );
+        fetchAuthors(searchName, selectedNationalities.join(",") || undefined, 1, 0, newSize, sortBy, sortAsc);
     };
 
     const toggleNationality = (code: string) => {
@@ -278,13 +242,14 @@ const ListAuthor: React.FC = () => {
                                         );
                                     })}
 
-                                <div
-                                    className="flag search-flag"
+                                <img
+                                    src={SearchIcon}
+                                    alt="Wyszukaj kraj"
+                                    title="Wyszukaj kraj"
+                                    className="flag"
                                     style={{ border: "2px dashed white" }}
                                     onClick={() => setSearchVisible(true)}
-                                >
-                                    🔍
-                                </div>
+                                />
                             </div>
 
                             {searchVisible && (
@@ -332,12 +297,21 @@ const ListAuthor: React.FC = () => {
                                 <thead>
                                 <tr>
                                     <th onClick={() => handleSort("name")}>
-                                        {"Imię i nazwisko"}
+                                        Imię i nazwisko
                                         {sortBy === "name" ? (sortAsc ? " ▲" : " ▼") : null}
                                     </th>
-                                    <th>{"Narodowość"}</th>
-                                    <th>{"Urodzony"}</th>
-                                    <th>{"Zmarł"}</th>
+                                    <th onClick={() => handleSort("nationalityPrimary")}>
+                                        Narodowość
+                                        {sortBy === "nationalityPrimary" ? (sortAsc ? " ▲" : " ▼") : null}
+                                    </th>
+                                    <th onClick={() => handleSort("birth_date_value")}>
+                                        Urodzony
+                                        {sortBy === "birth_date_value" ? (sortAsc ? " ▲" : " ▼") : null}
+                                    </th>
+                                    <th onClick={() => handleSort("death_date_value")}>
+                                        Zmarł
+                                        {sortBy === "death_date_value" ? (sortAsc ? " ▲" : " ▼") : null}
+                                    </th>
                                 </tr>
                                 </thead>
 

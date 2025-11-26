@@ -11,7 +11,6 @@ interface QuoteDTO {
     text: string;
     author: AuthorDTO;
     quoteDateInfo: DateInfo;
-    period?: string;
     source?: string;
     favorite?: boolean;
 }
@@ -29,23 +28,6 @@ interface DateInfo {
 }
 
 const ListQuote: React.FC = () => {
-    const location = useLocation();
-
-    const [sortBy, setSortBy] = useState<string>("author.name");
-    const [sortAsc, setSortAsc] = useState<boolean>(true);
-
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const authorParam = params.get("author");
-        setPage(0);
-        if (authorParam) {
-            setSearchAuthor(authorParam);
-            fetchQuotes(undefined, authorParam, searchPeriod, searchSource, 1, 0, size, sortBy, sortAsc);
-        } else {
-            fetchQuotes(undefined, undefined, searchPeriod, searchSource, 1, 0, size, sortBy, sortAsc);
-        }
-    }, [location.search, sortBy, sortAsc]);
-
     const { i18n } = useTranslation();
     const { user } = useContext(AuthContext);
 
@@ -53,20 +35,34 @@ const ListQuote: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const [searchText, setSearchText] = useState("");
-    const [searchAuthor, setSearchAuthor] = useState("");
-    const [searchSource, setSearchSource] = useState("");
-
-    const [searchPeriod] = useState("");
-
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(20);
     const [totalPages, setTotalPages] = useState(1);
 
+    const [searchText, setSearchText] = useState("");
+    const [searchAuthor, setSearchAuthor] = useState("");
+    const [searchSource, setSearchSource] = useState("");
+
+    const [sortBy, setSortBy] = useState<string>("author.name");
+    const [sortAsc, setSortAsc] = useState<boolean>(true);
+    
+    const location = useLocation();
+    
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const authorParam = params.get("author");
+        setPage(0);
+        if (authorParam) {
+            setSearchAuthor(authorParam);
+            fetchQuotes(undefined, authorParam, searchSource, 1, 0, size, sortBy, sortAsc);
+        } else {
+            fetchQuotes(undefined, undefined, searchSource, 1, 0, size, sortBy, sortAsc);
+        }
+    }, [location.search]);
+    
     const fetchQuotes = async (
         text?: string,
         author?: string,
-        period?: string,
         source?: string,
         approved: number = 1,
         pageNum?: number,
@@ -80,7 +76,6 @@ const ListQuote: React.FC = () => {
 
             if (text) params.append("text", text);
             if (author) params.append("author", author);
-            if (period) params.append("period", period);
             if (source) params.append("source", source);
 
             params.append("approved", approved ? "1" : "1");
@@ -127,13 +122,13 @@ const ListQuote: React.FC = () => {
         }
 
         setPage(0);
-        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, 1, 0, size, field, sortBy === field ? !sortAsc : true);
+        fetchQuotes(searchText, searchAuthor, searchSource, 1, 0, size, field, sortBy === field ? !sortAsc : true);
     };
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         setPage(0);
-        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, 1, 0, size);
+        fetchQuotes(searchText, searchAuthor, searchSource, 1, 0, size);
     };
 
     const toggleFavorite = async (quoteId: number, isFavorite: boolean) => {
@@ -159,14 +154,14 @@ const ListQuote: React.FC = () => {
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
-        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, 1, newPage, size);
+        fetchQuotes(searchText, searchAuthor, searchSource, 1, newPage, size, sortBy, sortAsc);
     };
 
     const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const newSize = Number(e.target.value);
         setSize(newSize);
         setPage(0);
-        fetchQuotes(searchText, searchAuthor, searchPeriod, searchSource, 1, 0, newSize);
+        fetchQuotes(searchText, searchAuthor, searchSource, 1, 0, size, sortBy, sortAsc);
     };
 
     const formatDate = (dateInfo: DateInfo | undefined, lang: string): string => {
@@ -241,11 +236,13 @@ const ListQuote: React.FC = () => {
                                     <th onClick={() => handleSort("text")}>
                                         Cytat {sortBy === "text" ? (sortAsc ? " ▲" : " ▼") : null}
                                     </th>
-                                    <th>Data</th>
+                                    <th onClick={() => handleSort("quote_date_value")}>
+                                        Data {sortBy === "quote_date_value" ? (sortAsc ? " ▲" : " ▼") : null}
+                                    </th>
                                     <th onClick={() => handleSort("source")}>
                                         Źródło {sortBy === "source" ? (sortAsc ? " ▲" : " ▼") : null}
                                     </th>
-                                    {user && <th>Zapisane</th>}
+                                    {user && <th></th>}
                                 </tr>
                                 </thead>
                                 <tbody>

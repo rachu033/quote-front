@@ -16,6 +16,7 @@ import AccountPanel from "./pages/AccountPanel.tsx";
 import ListFavorite from "./pages/ListFavorite.tsx";
 
 const App = () => {
+
     return (
         <AuthProvider>
             <BrowserRouter>
