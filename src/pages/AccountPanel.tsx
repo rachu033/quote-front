@@ -30,8 +30,6 @@ const AccountPanel: React.FC = () => {
             setNickname(data.nickname);
         } catch (err) {
             console.error(err);
-        } finally {
-            setLoading(false);
         }
     };
 

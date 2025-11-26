@@ -27,7 +27,6 @@ const AddQuote: React.FC = () => {
         text: string;
         authorId: number | null;
         quoteDateInfo: DateInfo;
-        period: string;
         source: string;
     }) => {
         try {
