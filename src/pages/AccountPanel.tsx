@@ -6,7 +6,6 @@ import "../styles/pages/AccountPanel.css";
 const AccountPanel: React.FC = () => {
     const { user, setUser } = useContext(AuthContext);
 
-    const [loading, setLoading] = useState(true);
     const [nickname, setNickname] = useState("");
     const [editNickname, setEditNickname] = useState(false);
     const [newNickname, setNewNickname] = useState("");
@@ -92,8 +91,6 @@ const AccountPanel: React.FC = () => {
             if (err instanceof Error) setError(err.message);
         }
     };
-
-    if (loading) return <p>Ładowanie danych...</p>;
 
     return (
         <div className="account-container">

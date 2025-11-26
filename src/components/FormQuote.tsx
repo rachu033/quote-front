@@ -20,7 +20,6 @@ export interface QuoteRecord {
     authorId: number | null;
     author?: Author | null;
     quoteDateInfo: DateInfo;
-    period?: string;
     source?: string;
 }
 
@@ -29,7 +28,6 @@ interface FormQuoteFormProps {
         text: string;
         authorId: number | null;
         quoteDateInfo: DateInfo;
-        period: string;
         source: string;
     }) => void;
 
@@ -47,13 +45,11 @@ const FormQuote: React.FC<FormQuoteFormProps> = ({onSubmit, initialData, onRejec
     const [dateApprox, setDateApprox] = useState("Dokładnie");
     const [dateEra, setDateEra] = useState("n.e.");
 
-    const [period, setPeriod] = useState("");
     const [source, setSource] = useState("");
     const [authorSuggestions, setAuthorSuggestions] = useState<{ id: number; name: string }[]>([]);
     const [message, setMessage] = useState("");
 
     const authorRef = useRef<HTMLDivElement>(null);
-    //const periods = ["Starożytność", "Średniowiecze", "Nowożytność", "Współczesność"];
 
     const prevInitialRef = useRef<QuoteRecord | null>(null);
 
@@ -91,30 +87,8 @@ const FormQuote: React.FC<FormQuoteFormProps> = ({onSubmit, initialData, onRejec
     const validateDate = (): boolean => {
         if (dateType === "Data") return /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(dateValue);
         if (dateType === "Rok") return /^\d+$/.test(dateValue);
-        if (dateType === "Wiek") return /^([IVXLCDM\d]+)\s*w\.?$/i.test(dateValue.trim());
+        if (dateType === "Wiek") return /^([IVXLCDM\d]+)(\s*w\.?)?$/i.test(dateValue.trim());
         return false;
-    };
-
-    const autoSetPeriod = () => {
-        let year: number | null = null;
-        if (dateType === "Data") {
-            const match = dateValue.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
-            if (match) year = parseInt(match[3]);
-        } else if (dateType === "Rok") {
-            if (/^\d+$/.test(dateValue)) {
-                year = parseInt(dateValue);
-                if (dateEra === "p.n.e.") year = -year;
-            }
-        } else if (dateType === "Wiek") return;
-
-        if (year !== null) {
-            if (year < 476) setPeriod("Starożytność");
-            else if (year >= 476 && year < 1492) setPeriod("Średniowiecze");
-            else if (year >= 1492 && year < 1914) setPeriod("Nowożytność");
-            else if (year >= 1914) setPeriod("Współczesność");
-        } else {
-            setPeriod("");
-        }
     };
 
     useEffect(() => {
@@ -146,18 +120,11 @@ const FormQuote: React.FC<FormQuoteFormProps> = ({onSubmit, initialData, onRejec
             setDateEra("n.e.");
         }
 
-        setPeriod(initialData.period || "");
         setSource(initialData.source || "");
 
         const timer = setTimeout(() => setIsAutoFilling(false), 0);
         return () => clearTimeout(timer);
     }, [initialData]);
-
-
-    useEffect(() => {
-        const timer = setTimeout(autoSetPeriod, 0);
-        return () => clearTimeout(timer);
-    }, [dateValue, dateType, dateEra]);
 
     useEffect(() => {
         let isMounted = true;
@@ -214,7 +181,7 @@ const FormQuote: React.FC<FormQuoteFormProps> = ({onSubmit, initialData, onRejec
         }
 
         if (onSubmit) {
-            onSubmit({text, authorId, quoteDateInfo, period, source});
+            onSubmit({text, authorId, quoteDateInfo, source});
             setMessage("Formularz został wysłany!");
         }
     };
@@ -227,7 +194,6 @@ const FormQuote: React.FC<FormQuoteFormProps> = ({onSubmit, initialData, onRejec
         setDateType("Data");
         setDateApprox("Dokładnie");
         setDateEra("n.e.");
-        setPeriod("");
         setSource("");
         setAuthorSuggestions([]);
         setMessage("");

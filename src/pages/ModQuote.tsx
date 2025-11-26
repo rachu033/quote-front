@@ -80,7 +80,6 @@ const ModQuote: React.FC = () => {
         text: string;
         authorId: number | null;
         quoteDateInfo: DateInfo;
-        period: string;
         source: string;
     }) => {
         try {
@@ -88,7 +87,6 @@ const ModQuote: React.FC = () => {
                 const updatedQuote: QuoteRecord = {
                     id: selectedQuote.id,
                     text: data.text,
-                    period: data.period,
                     source: data.source,
                     quoteDateInfo: data.quoteDateInfo,
                     author: data.authorId !== null ? { id: data.authorId, name: selectedQuote.author?.name || "" } : null,
@@ -116,7 +114,6 @@ const ModQuote: React.FC = () => {
                         text: data.text,
                         authorId: data.authorId,
                         quoteDateInfo: data.quoteDateInfo,
-                        period: data.period,
                         source: data.source,
                     }),
                 });
@@ -186,7 +183,7 @@ const ModQuote: React.FC = () => {
                                 style={{
                                     cursor: "pointer",
                                     background: selectedQuote?.id === q.id ? "rgba(255,255,255,0.2)" : ""
-                            }} >
+                                }} >
                                 <strong>{q.text.slice(0, 36)}...</strong>
                             </li>
                         ))}

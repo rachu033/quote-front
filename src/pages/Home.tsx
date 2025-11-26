@@ -20,7 +20,6 @@ interface QuoteOfDay {
 
 const Home: React.FC = () => {
     const [qod, setQod] = useState<QuoteOfDay | null>(null);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -33,15 +32,12 @@ const Home: React.FC = () => {
             } catch (err) {
                 console.error(err);
                 setError("Błąd podczas pobierania Cytatu Dnia");
-            } finally {
-                setLoading(false);
             }
         };
 
         fetchQod();
     }, []);
 
-    if (loading) return <div className="loading">Ładowanie...</div>;
     if (error) return <div className="error-page"><h2>{error}</h2></div>;
 
     return (
@@ -54,7 +50,7 @@ const Home: React.FC = () => {
                         <p className="qod-author">— {qod.quote.author?.name}</p>
                     </div>
                 ) : (
-                    <p>Brak Cytatu Dnia</p>
+                    <p></p>
                 )}
             </div>
         </div>
